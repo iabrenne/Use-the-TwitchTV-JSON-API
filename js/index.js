@@ -27,12 +27,16 @@ $(document).ready(function(){
 
             var display_name = data.display_name;
             var imgHtmlElement = "#twitch-res" + (index + 1) + "-pic > img" ;
+            var divHtmlElement = "#twitch-res" + (index + 1);
             var nameDivHtlmElement = "#twitch-res" + (index + 1) + "-name";
             var statusDivHtmlElement = "#twitch-res" + (index + 1 ) + "-status"
 
+            $(divHtmlElement).css("display","flex");
             $(imgHtmlElement).attr("src", data.logo); 
+            $(imgHtmlElement).addClass("w3-circle w3-card-4", data.logo);
             $(nameDivHtlmElement).html(display_name);
             $(nameDivHtlmElement).attr("href", "https://www.twitch.tv/" + element);
+         
 
             var urlStream = urlStreams + display_name;
 
@@ -43,6 +47,7 @@ $(document).ready(function(){
                 else
                     $(statusDivHtmlElement).html(data.stream.channel.status);
 
+                    $(statusDivHtmlElement).css("width","50%");
             });
 
         });
