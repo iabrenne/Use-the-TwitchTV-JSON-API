@@ -15,39 +15,41 @@ $(document).ready(function(){
         var urlUser = urlUsers + element;
         $.getJSON(urlUser, function(data) {
 
-            // if (data.stream != null){
-            
-            //     channelURL = data.stream.channel.url;
-            //     $("#twitch-res1-pic > img").css("visibility", "visible");
-            //     $("#twitch-res1-pic > img").attr("src", logoURL);       
-            //     $("#twitch-res1-name").html(data.stream.channel.display_name);
-            //     $("#twitch-res1-name").attr("href", channelURL);
-            //     $("#twitch-res1-status").html(data.stream.channel.status);
-            //
-
             var display_name = data.display_name;
-            var imgHtmlElement = "#twitch-res" + (index + 1) + "-pic > img" ;
             var divHtmlElement = "#twitch-res" + (index + 1);
-            var nameDivHtlmElement = "#twitch-res" + (index + 1) + "-name";
-            var statusDivHtmlElement = "#twitch-res" + (index + 1 ) + "-status"
+            $(divHtmlElement).addClass("w3-cell-row w3-border w3-padding-16 w3-container");
 
-            $(divHtmlElement).css("display","flex");
+            var imgHtmlElementDiv = "#twitch-res" + (index + 1) + "-pic";
+            $(imgHtmlElementDiv).addClass("w3-cell w3-cell-middle w3-mobile");
+
+            var imgHtmlElement = "#twitch-res" + (index + 1) + "-pic > img" ;
             $(imgHtmlElement).attr("src", data.logo); 
-            $(imgHtmlElement).addClass("w3-circle w3-card-4", data.logo);
+            $(imgHtmlElement).addClass("w3-circle");
+
+            var aDivHtmlElement = "#twitch-res" + (index + 1) + "-a";
+            $(aDivHtmlElement).addClass("w3-cell w3-cell-middle w3-mobile");
+            
+            var nameDivHtlmElement = "#twitch-res" + (index + 1) + "-name";
             $(nameDivHtlmElement).html(display_name);
-            $(nameDivHtlmElement).attr("href", "https://www.twitch.tv/" + element);
-         
+            $(nameDivHtlmElement).attr("href", "https://www.twitch.tv/" + element);     
+            $(nameDivHtlmElement).addClass("w3-button w3-round");
 
             var urlStream = urlStreams + display_name;
 
             $.getJSON(urlStream, function(data) {
 
-                if (data.stream == null ) 
+                var statusDivHtmlElement = "#twitch-res" + (index + 1 ) + "-status";
+                
+                if (data.stream == null ) {
                     $(statusDivHtmlElement).html("Not Currently Streaming");
-                else
+                    $(divHtmlElement).addClass("w3-2017-neutral-grey");
+                }
+                else {
                     $(statusDivHtmlElement).html(data.stream.channel.status);
-
-                    $(statusDivHtmlElement).css("width","50%");
+                    $(divHtmlElement).addClass("w3-highway-green");
+                }
+               $(statusDivHtmlElement).css("width","50%");
+               $(statusDivHtmlElement).addClass("w3-cell w3-cell-middle w3-mobile");
             });
 
         });
